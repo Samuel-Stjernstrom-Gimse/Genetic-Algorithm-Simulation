@@ -1,97 +1,107 @@
 "use strict";
-const dataArray = [];
-const objArray = [];
-const genCount = document.getElementById('generation-counter');
-let bestDistance = 10000000;
-let bestDistanceIndex = 0;
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const draw = (x, y, w, h, color, ctx) => {
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, w, h);
-};
-function calculateDistance(x1, y1, x2, y2) {
-    return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-}
-for (let i = 0; i < 100; i++) {
-    const squareArray = [];
-    for (let j = 0; j < 500; j++) {
-        const getRandom = Math.floor(Math.random() * 4) + 1;
-        squareArray.push(getRandom);
-    }
-    let squareObj = {
-        xPosition: 250,
-        yPosition: 250,
-        distanceFromGoal: 0,
+function main(generations) {
+    const dataArray = [];
+    const objArray = [];
+    const genCount = document.getElementById('genCount');
+    let bestDistance = Infinity;
+    let bestDistanceIndex = Infinity;
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const gX = Math.floor(Math.random() * canvas.width - 30);
+    const gY = Math.floor(Math.random() * canvas.height - 30);
+    const draw = (x, y, w, h, color, ctx) => {
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, w, h);
     };
-    objArray.push(squareObj);
-    dataArray.push(squareArray);
-}
-function initLearning(ctx) {
-    for (let i = 0; i < 10; i++) {
-        objArray.forEach((obj) => {
-            obj.xPosition = 250;
-            obj.yPosition = 250;
-        });
-        dataArray.forEach((array, rowIndex) => {
-            array.forEach((value, valueIndex) => {
-                if (value === 1) {
-                    objArray[rowIndex].xPosition -= 3;
-                }
-                else if (value === 2) {
-                    objArray[rowIndex].yPosition -= 3;
-                }
-                else if (value === 3) {
-                    objArray[rowIndex].xPosition += 3;
-                }
-                else if (value === 4) {
-                    objArray[rowIndex].yPosition += 3;
-                }
-                objArray.forEach((obj) => {
-                    setInterval(render, 100, obj.xPosition, obj.yPosition, 2, 2, ctx);
-                });
-            });
-        });
-        bestDistance = Infinity;
-        bestDistance = Infinity;
-        objArray.forEach((obj, index) => {
-            obj.distanceFromGoal = calculateDistance(obj.xPosition, obj.yPosition, 2, 2);
-            if (obj.distanceFromGoal < bestDistance) {
-                bestDistance = obj.distanceFromGoal;
-                bestDistanceIndex = index;
-            }
-            console.log(bestDistanceIndex);
-        });
-        dataArray.forEach((array, rowIndex) => {
-            if (rowIndex !== bestDistanceIndex) {
-                array.forEach((value, valueIndex) => {
-                    array[valueIndex] = dataArray[bestDistanceIndex][valueIndex];
-                });
-            }
-            const randomNum1 = Math.floor(Math.random() * array.length);
-            const randomNum2 = Math.floor(Math.random() * array.length);
-            const randomNum3 = Math.floor(Math.random() * array.length);
-            const randomNum4 = Math.floor(Math.random() * array.length);
-            const randomNum5 = Math.floor(Math.random() * array.length);
-            const randomNum6 = Math.floor(Math.random() * array.length);
-            const randomNum7 = Math.floor(Math.random() * array.length);
-            const randomNum8 = Math.floor(Math.random() * array.length);
-            const randomNum9 = Math.floor(Math.random() * array.length);
-            array[randomNum1] = Math.floor(Math.random() * 4) + 1;
-            array[randomNum2] = Math.floor(Math.random() * 4) + 1;
-            array[randomNum3] = Math.floor(Math.random() * 4) + 1;
-            array[randomNum4] = Math.floor(Math.random() * 4) + 1;
-            array[randomNum5] = Math.floor(Math.random() * 4) + 1;
-            array[randomNum6] = Math.floor(Math.random() * 4) + 1;
-            array[randomNum7] = Math.floor(Math.random() * 4) + 1;
-            array[randomNum8] = Math.floor(Math.random() * 4) + 1;
-            array[randomNum9] = Math.floor(Math.random() * 4) + 1;
-        });
+    function calculateDistance(x1, y1, x2, y2) {
+        return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
     }
+    for (let i = 0; i < 10; i++) {
+        const squareArray = [];
+        for (let j = 0; j < 10000; j++) {
+            const getRandom = Math.floor(Math.random() * 4) + 1;
+            squareArray.push(getRandom);
+        }
+        let squareObj = {
+            xPosition: 250,
+            yPosition: 250,
+            distanceFromGoal: 0,
+        };
+        objArray.push(squareObj);
+        dataArray.push(squareArray);
+    }
+    function initLearning(ctx, numGenerations) {
+        let generationCounter = 0;
+        const learningInterval = setInterval(() => {
+            if (bestDistance < 2) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                bestDistance = Infinity;
+                main(1000);
+            }
+            if (generationCounter < numGenerations) {
+                objArray.forEach((obj) => {
+                    obj.xPosition = 250;
+                    obj.yPosition = 250;
+                });
+                dataArray.forEach((array, rowIndex) => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    array.forEach((value) => {
+                        if (value === 1) {
+                            objArray[rowIndex].xPosition -= 1;
+                        }
+                        else if (value === 2) {
+                            objArray[rowIndex].yPosition -= 1;
+                        }
+                        else if (value === 3) {
+                            objArray[rowIndex].xPosition += 1;
+                        }
+                        else if (value === 4) {
+                            objArray[rowIndex].yPosition += 1;
+                        }
+                        render(objArray[rowIndex].xPosition, objArray[rowIndex].yPosition, gX, gY, ctx);
+                    });
+                });
+                bestDistance = Infinity;
+                bestDistanceIndex = 0;
+                objArray.forEach((obj, index) => {
+                    obj.distanceFromGoal = calculateDistance(obj.xPosition, obj.yPosition, gX, gY);
+                    if (obj.distanceFromGoal < bestDistance) {
+                        bestDistance = obj.distanceFromGoal;
+                        bestDistanceIndex = index;
+                    }
+                });
+                dataArray.forEach((array, rowIndex) => {
+                    if (rowIndex !== bestDistanceIndex) {
+                        array.forEach((value, valueIndex) => {
+                            array[valueIndex] = dataArray[bestDistanceIndex][valueIndex];
+                        });
+                    }
+                    const randomIndices = Array.from({ length: 10 }, () => Math.floor(Math.random() * array.length));
+                    randomIndices.forEach((randomIndex) => {
+                        array[randomIndex] = Math.floor(Math.random() * 4) + 1;
+                    });
+                });
+                bestDistance = Infinity;
+                bestDistance = Infinity;
+                objArray.forEach((obj, index) => {
+                    obj.distanceFromGoal = calculateDistance(obj.xPosition, obj.yPosition, gX, gY);
+                    if (obj.distanceFromGoal < bestDistance) {
+                        bestDistance = obj.distanceFromGoal;
+                        bestDistanceIndex = index;
+                    }
+                });
+                generationCounter++;
+            }
+            else {
+                clearInterval(learningInterval);
+            }
+        }, 100);
+    }
+    function render(x, y, gx, gy, ctx) {
+        draw(x, y, 2, 2, 'red', ctx);
+        draw(gx, gy, 10, 10, 'green', ctx);
+    }
+    initLearning(ctx, generations);
 }
-function render(x, y, gx, gy, ctx) {
-    draw(x, y, 5, 5, 'red', ctx);
-    draw(gx, gy, 30, 30, 'red', ctx);
-}
-initLearning(ctx);
+main(1000);
 //# sourceMappingURL=script.js.map
