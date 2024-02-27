@@ -6,8 +6,7 @@
 }
 
 canvas{
-    background-color: gray;
-    border: 2px solid red;
+    background-color: #0c0c0c;
 }
 
 body{
@@ -16,4 +15,10 @@ body{
     align-items: center;
     justify-content: center;
     height: 100vh;
+}
+#input {
+    position: fixed;
+    bottom: 4%;
+    display: flex;
+    flex-direction: row;
 }
