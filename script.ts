@@ -1,6 +1,19 @@
-function main(generations: number, genSize: number, mutation: number) {
+function main(generations: number) {
 	const dataArray: Array<number>[] = []
 	const objArray: any[] = []
+
+	const mutationInput = document.getElementById('mutation-percentage') as HTMLInputElement
+	const generationSize = document.getElementById('generationSize') as HTMLInputElement
+	const inheritance = document.getElementById('inheritance') as HTMLInputElement
+	const stepLength = document.getElementById('stepLength') as HTMLInputElement
+	const pixelSize = document.getElementById('pixel') as HTMLInputElement
+	const speed = document.getElementById('speed') as HTMLInputElement
+	const resetBtn = document.getElementById('btn') as HTMLInputElement
+	let resetBool = false
+
+	resetBtn.addEventListener('click', () => {
+		resetBool = !resetBool
+	})
 
 	let bestDistance = Infinity
 	let bestDistanceIndex = Infinity
@@ -34,9 +47,9 @@ function main(generations: number, genSize: number, mutation: number) {
 		return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 	}
 
-	for (let i = 0; i < 10; i++) {
+	for (let i = 0; i < 6; i++) {
 		const squareArray = []
-		for (let j = 0; j < genSize; j++) {
+		for (let j = 0; j < generationSize.valueAsNumber; j++) {
 			const getRandom = Math.floor(Math.random() * 4) + 1
 			squareArray.push(getRandom)
 		}
@@ -56,12 +69,12 @@ function main(generations: number, genSize: number, mutation: number) {
 	function initLearning(ctx: CanvasRenderingContext2D, numGenerations: number) {
 		let generationCounter = 0
 		let lastFrameTime = 0
-		const fpsInterval = 1000 / 30
+		const fpsInterval = 1000 / speed.valueAsNumber
 
 		const animate = (timestamp: number) => {
-			if (bestDistance < 7 || generationCounter >= numGenerations) {
+			if (bestDistance < 15 || generationCounter >= numGenerations || resetBool) {
 				ctx.clearRect(0, 0, canvas.width, canvas.height)
-				main(Infinity, 2000, 20)
+				main(Infinity)
 				return
 			}
 
@@ -73,18 +86,18 @@ function main(generations: number, genSize: number, mutation: number) {
 					obj.xPosition = canvas.width / 2
 					obj.yPosition = canvas.height / 2
 				})
+				ctx.clearRect(0, 0, canvas.width, canvas.height)
 
 				dataArray.forEach((array, rowIndex) => {
-					ctx.clearRect(0, 0, canvas.width, canvas.height)
 					array.forEach((value) => {
 						if (value === 1) {
-							objArray[rowIndex].xPosition -= 4
+							objArray[rowIndex].xPosition -= stepLength.valueAsNumber
 						} else if (value === 2) {
-							objArray[rowIndex].yPosition -= 4
+							objArray[rowIndex].yPosition -= stepLength.valueAsNumber
 						} else if (value === 3) {
-							objArray[rowIndex].xPosition += 4
+							objArray[rowIndex].xPosition += stepLength.valueAsNumber
 						} else if (value === 4) {
-							objArray[rowIndex].yPosition += 4
+							objArray[rowIndex].yPosition += stepLength.valueAsNumber
 						}
 						render(
 							objArray[rowIndex].xPosition,
@@ -106,15 +119,24 @@ function main(generations: number, genSize: number, mutation: number) {
 						bestDistanceIndex = index
 					}
 				})
-
+				//arv her
 				dataArray.forEach((array, rowIndex) => {
-					if (rowIndex !== bestDistanceIndex) {
+					/*if (rowIndex !== bestDistanceIndex) {
 						array.forEach((value, valueIndex) => {
 							array[valueIndex] = dataArray[bestDistanceIndex][valueIndex]
 						})
+					}*/
+					// optimal genes
+					if (rowIndex !== bestDistanceIndex) {
+						const randomIndicesOptimal = Array.from({ length: inheritance.valueAsNumber }, () =>
+							Math.floor(Math.random() * array.length)
+						)
+						randomIndicesOptimal.forEach((randomIndex) => {
+							array[randomIndex] = dataArray[bestDistanceIndex][randomIndex]
+						})
 					}
-
-					const randomIndices = Array.from({ length: mutation }, () =>
+					//random genes
+					const randomIndices = Array.from({ length: mutationInput.valueAsNumber }, () =>
 						Math.floor(Math.random() * array.length)
 					)
 					randomIndices.forEach((randomIndex) => {
@@ -139,7 +161,7 @@ function main(generations: number, genSize: number, mutation: number) {
 	}
 
 	function render(x: number, y: number, gx: number, gy: number, ctx: any, generationCounter: number) {
-		draw(x, y, 1, 1, 'white', ctx)
+		draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, 'gray', ctx)
 		drawStrokedCircle(ctx, gx, gy, 5, 'orange')
 		ctx.font = '16px Arial'
 		ctx.fillStyle = 'white'
@@ -148,4 +170,4 @@ function main(generations: number, genSize: number, mutation: number) {
 	if (ctx !== null) initLearning(ctx, generations)
 }
 
-main(Infinity, 2000, 20)
+main(Infinity)
