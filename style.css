@@ -4,7 +4,7 @@
     padding: 0;
     font-family: Arial, serif;
     color: white;
-    font-size: 12px;
+    font-size: 0.9rem;
     font-weight: lighter;
 }
 
@@ -55,7 +55,7 @@ input:hover, button:hover {
     border: 0.5px solid rgba(255, 255, 255, 0.41);
 }
 
-#strict-inputs{
+#strict-inputs, #live-inputs{
     position: relative;
     display: flex;
     flex-direction: row;
@@ -68,7 +68,7 @@ input:hover, button:hover {
     margin-right: 20px;
 }
 
-#info{
+#info, #dynamic{
     position: absolute;
     top: -30%;
     right: 0;
