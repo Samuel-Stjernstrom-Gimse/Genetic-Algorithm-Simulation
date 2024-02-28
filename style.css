@@ -4,24 +4,35 @@
     padding: 0;
     font-family: Arial, serif;
     color: white;
-    font-size: 0.9rem;
+
     font-weight: lighter;
 }
 
+
+#hero{
+    font-size: 0.9rem;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 canvas{
     background-color: #0c0c0c;
 }
 
 body{
+    scrollbar-width: thin;
     image-rendering: optimizeSpeed;
     background-color: #373434;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    flex-direction: column;
+
 }
 #input {
-    position: fixed;
+    position: absolute;
     bottom: 2%;
     display: flex;
     flex-direction: row;
@@ -73,4 +84,32 @@ input:hover, button:hover {
     top: -30%;
     right: 0;
     color: gray;
+}
+
+#genetic-simulation{
+    background-image: url("images/dna.jpg");
+    background-size: cover;
+    padding-left: 20%;
+    padding-right: 20%;
+
+}
+::-webkit-scrollbar{
+    opacity: 0.7;
+}
+
+#text{
+    padding: 90px;
+    background-color: rgba(0, 0, 0, 0.68);
+    padding-top: 5%;
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10%;
+}
+li{
+    padding-top: 20px;
+}
+
+h3{
+    color: #1affa5;
 }

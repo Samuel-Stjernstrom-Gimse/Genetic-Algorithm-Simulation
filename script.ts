@@ -69,7 +69,7 @@ function main(generations: number) {
 		dataArray.push(squareArray)
 	}
 
-	document.addEventListener('mousemove', (event) => {
+	canvas.addEventListener('mousemove', (event) => {
 		gX = event.clientX
 		gY = event.clientY
 	})

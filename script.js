@@ -50,7 +50,7 @@ function main(generations) {
         objArray.push(squareObj);
         dataArray.push(squareArray);
     }
-    document.addEventListener('mousemove', (event) => {
+    canvas.addEventListener('mousemove', (event) => {
         gX = event.clientX;
         gY = event.clientY;
     });

@@ -17,50 +17,124 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
+<section id="hero">
+    <div id="input">
+        <div id="strict-inputs">
+            <div class="input-divs">
+                <h3>generation size</h3>
+                <label for="generationSize"></label><input value="1000" id="generationSize" max="5000" min="100" type="number" placeholder="Generation Size">
+            </div>
+            <div class="input-divs" >
+                <h3>branches</h3>
+                <label for="branches"></label><input type="number" id="branches" value="20" min="1" max="100">
+            </div>
+            <div class="input-divs" >
+                <h3>render speed</h3>
+                <label for="speed"></label><input type="number" id="speed" value="50" min="1" max="120">
+            </div>
+            <button id="btn">reset</button>
+            <h4 id="info">reset to update values</h4>
+        </div>
+        <div id="live-inputs">
+            <div class="input-divs">
+                <h3>mutations</h3>
+                <label for="mutation-percentage"></label><input value="10" id="mutation-percentage" max="99" min="1" type='number' placeholder="mutation">
+            </div>
+            <div class="input-divs" >
+                <h3>genes from best</h3>
+                <label for="inheritance"></label><input type="number" id="inheritance" value="310" placeholder="inheritance" >
+            </div>
+            <div class="input-divs" >
+                <h3>step length</h3>
+                <label for="stepLength"></label><input type="number" value="3" id="stepLength" placeholder="step length" >
+            </div>
+            <div class="input-divs" >
+                <h3>pixel size</h3>
+                <label for='pixel'></label><input type="number" id='pixel' value="2" placeholder="pixel size">
+            </div>
+            <h4 id="dynamic">dynamic update</h4>
+        </div>
+    </div>
+    <canvas height="600" width="1320" id="canvas"></canvas>
+</section>
 
-<div id="input">
-    <div id="strict-inputs">
-        <div class="input-divs">
-            <h3>genes</h3>
-            <label for="generationSize"></label><input value="1000" id="generationSize" max="5000" min="100" type="number" placeholder="Generation Size">
-        </div>
-        <div class="input-divs" >
-            <h3>branches</h3>
-            <label for="branches"></label><input type="number" id="branches" value="20" min="1" max="100">
-        </div>
-        <div class="input-divs" >
-            <h3>render speed</h3>
-            <label for="speed"></label><input type="number" id="speed" value="50" min="1" max="120">
-        </div>
-        <button id="btn">reset</button>
-        <h4 id="info">reset to update values</h4>
+<section id="genetic-simulation">
+    <div id="text">
+        <h1>Genetic Algorithm Simulation</h1>
+
+        <p>
+            Welcome to the Genetic Algorithm Simulation! This interactive web application allows you to explore the concept of genetic algorithms through a dynamic and visually engaging simulation. Genetic algorithms are optimization algorithms inspired by the process of natural selection, where potential solutions evolve over generations to find the most optimal solution.
+        </p>
+
+        <h2>Instructions:</h2>
+        <p>
+            Adjust the simulation parameters using the input fields to observe how the genetic algorithm adapts and evolves to reach a target goal. Here's a brief overview of each input:
+        </p>
+
+        <ul>
+            <li>
+                <h3>Generation Size:</h3>
+                <p>
+                    Control the number of individuals in each generation.
+                </p>
+            </li>
+
+            <li>
+                <h3>Branches:</h3>
+                <p>
+                    Specify the number of branches, each representing a unique individual in the simulation.
+                </p>
+            </li>
+
+            <li>
+                <h3>Render Speed:</h3>
+                <p>
+                    Set the speed at which the simulation renders each generation.
+                </p>
+            </li>
+
+            <li>
+                <h3>Mutations:</h3>
+                <p>
+                    Adjust the percentage of genes that mutate in each generation.
+                </p>
+            </li>
+
+            <li>
+                <h3>Genes from Best:</h3>
+                <p>
+                    Determine the number of genes inherited from the best-performing individual in each generation.
+                    Higher values encourage convergence towards optimal solutions.
+                </p>
+            </li>
+
+            <li>
+                <h3>Step Length:</h3>
+                <p>
+                    Define the distance each individual can move in a single step.
+                    Fine-tune the balance between exploration and exploitation.
+                </p>
+            </li>
+
+            <li>
+                <h3>Pixel Size:</h3>
+                <p>
+                    Set the size of the pixels representing individuals in the simulation.
+                    Smaller values provide a more detailed view.
+                </p>
+            </li>
+        </ul>
+
+        <p>
+            Feel free to interact with the simulation by moving your mouse, and click the "Reset" button to start fresh with updated parameters. The simulation will display the current generation and the progress towards the target goal.
+        </p>
+
+        <p>
+            Explore the fascinating world of genetic algorithms and observe how different parameter combinations influence the evolution of solutions. Happy experimenting!
+        </p>
     </div>
 
-    <div id="live-inputs">
-        <div class="input-divs">
-            <h3>mutations</h3>
-            <label for="mutation-percentage"></label><input value="10" id="mutation-percentage" max="99" min="1" type='number' placeholder="mutation">
-        </div>
-        <div class="input-divs" >
-            <h3>genes from best</h3>
-            <label for="inheritance"></label><input type="number" id="inheritance" value="310" placeholder="inheritance" >
-        </div>
-        <div class="input-divs" >
-            <h3>step length</h3>
-            <label for="stepLength"></label><input type="number" value="3" id="stepLength" placeholder="step length" >
-        </div>
-        <div class="input-divs" >
-            <h3>pixel size</h3>
-            <label for='pixel'></label><input type="number" id='pixel' value="2" placeholder="pixel size">
-        </div>
-        <h4 id="dynamic">dynamic update</h4>
-    </div>
-
-
-
-</div>
-
-<canvas height="600" width="1320" id="canvas"></canvas>
+</section>
 
 <script src="script.js"></script>
 </body>
