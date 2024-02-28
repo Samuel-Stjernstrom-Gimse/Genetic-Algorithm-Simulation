@@ -3,7 +3,7 @@ function main(generations: number) {
 	const objArray: any[] = []
 
 	const mutationInput = document.getElementById('mutation-percentage') as HTMLInputElement
-	const generationSize = document.getElementById('generationSize') as HTMLInputElement
+	const stepCount = document.getElementById('generationSize') as HTMLInputElement
 	const inheritance = document.getElementById('inheritance') as HTMLInputElement
 	const stepLength = document.getElementById('stepLength') as HTMLInputElement
 	const pixelSize = document.getElementById('pixel') as HTMLInputElement
@@ -53,7 +53,7 @@ function main(generations: number) {
 
 	for (let i = 0; i < 30; i++) {
 		const squareArray = []
-		for (let j = 0; j < generationSize.valueAsNumber; j++) {
+		for (let j = 0; j < stepCount.valueAsNumber; j++) {
 			const getRandom = Math.floor(Math.random() * 4) + 1
 			squareArray.push(getRandom)
 		}

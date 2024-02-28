@@ -3,7 +3,7 @@ function main(generations) {
     const dataArray = [];
     const objArray = [];
     const mutationInput = document.getElementById('mutation-percentage');
-    const generationSize = document.getElementById('generationSize');
+    const stepCount = document.getElementById('generationSize');
     const inheritance = document.getElementById('inheritance');
     const stepLength = document.getElementById('stepLength');
     const pixelSize = document.getElementById('pixel');
@@ -37,7 +37,7 @@ function main(generations) {
     }
     for (let i = 0; i < 30; i++) {
         const squareArray = [];
-        for (let j = 0; j < generationSize.valueAsNumber; j++) {
+        for (let j = 0; j < stepCount.valueAsNumber; j++) {
             const getRandom = Math.floor(Math.random() * 4) + 1;
             squareArray.push(getRandom);
         }
