@@ -41,6 +41,3 @@ Contributions to enhance the genetic algorithm or introduce new features are wel
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Acknowledgments
-
-- The project draws inspiration from genetic algorithms and evolutionary computing.
