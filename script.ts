@@ -20,8 +20,12 @@ function main(generations: number) {
 
 	const canvas = document.getElementById('canvas') as HTMLCanvasElement
 	const ctx = canvas.getContext('2d')
-	const gX = Math.floor(Math.random() * canvas.width - 30)
-	const gY = Math.floor(Math.random() * canvas.height - 30)
+
+	canvas.width = window.innerWidth
+	canvas.height = window.innerHeight
+
+	let gX = Math.floor(Math.random() * canvas.width - 30)
+	let gY = Math.floor(Math.random() * canvas.height - 30)
 
 	const draw = (x: number, y: number, w: number, h: number, color: string, ctx: any): void => {
 		ctx.fillStyle = color
@@ -47,7 +51,7 @@ function main(generations: number) {
 		return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 	}
 
-	for (let i = 0; i < 6; i++) {
+	for (let i = 0; i < 30; i++) {
 		const squareArray = []
 		for (let j = 0; j < generationSize.valueAsNumber; j++) {
 			const getRandom = Math.floor(Math.random() * 4) + 1
@@ -64,6 +68,10 @@ function main(generations: number) {
 		dataArray.push(squareArray)
 	}
 
+	document.addEventListener('mousemove', (event) => {
+		gX = event.clientX
+		gY = event.clientY
+	})
 	// @ts-ignore
 
 	function initLearning(ctx: CanvasRenderingContext2D, numGenerations: number) {
@@ -86,8 +94,13 @@ function main(generations: number) {
 					obj.xPosition = canvas.width / 2
 					obj.yPosition = canvas.height / 2
 				})
-				ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+				ctx.clearRect(0, 0, canvas.width, canvas.height)
+				drawStrokedCircle(ctx, gX, gY, 5, 'orange')
+
+				ctx.font = '16px Arial'
+				ctx.fillStyle = 'white'
+				ctx.fillText(`Generations: ${generationCounter}`, 10, 20)
 				dataArray.forEach((array, rowIndex) => {
 					array.forEach((value) => {
 						if (value === 1) {
@@ -162,10 +175,6 @@ function main(generations: number) {
 
 	function render(x: number, y: number, gx: number, gy: number, ctx: any, generationCounter: number) {
 		draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, 'gray', ctx)
-		drawStrokedCircle(ctx, gx, gy, 5, 'orange')
-		ctx.font = '16px Arial'
-		ctx.fillStyle = 'white'
-		ctx.fillText(`Generations: ${generationCounter}`, 10, 20)
 	}
 	if (ctx !== null) initLearning(ctx, generations)
 }

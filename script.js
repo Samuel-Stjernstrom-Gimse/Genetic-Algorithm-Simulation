@@ -17,8 +17,10 @@ function main(generations) {
     let bestDistanceIndex = Infinity;
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const gX = Math.floor(Math.random() * canvas.width - 30);
-    const gY = Math.floor(Math.random() * canvas.height - 30);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let gX = Math.floor(Math.random() * canvas.width - 30);
+    let gY = Math.floor(Math.random() * canvas.height - 30);
     const draw = (x, y, w, h, color, ctx) => {
         ctx.fillStyle = color;
         ctx.fillRect(x, y, w, h);
@@ -33,7 +35,7 @@ function main(generations) {
     function calculateDistance(x1, y1, x2, y2) {
         return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
     }
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 30; i++) {
         const squareArray = [];
         for (let j = 0; j < generationSize.valueAsNumber; j++) {
             const getRandom = Math.floor(Math.random() * 4) + 1;
@@ -47,6 +49,10 @@ function main(generations) {
         objArray.push(squareObj);
         dataArray.push(squareArray);
     }
+    document.addEventListener('mousemove', (event) => {
+        gX = event.clientX;
+        gY = event.clientY;
+    });
     function initLearning(ctx, numGenerations) {
         let generationCounter = 0;
         let lastFrameTime = 0;
@@ -65,6 +71,10 @@ function main(generations) {
                     obj.yPosition = canvas.height / 2;
                 });
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawStrokedCircle(ctx, gX, gY, 5, 'orange');
+                ctx.font = '16px Arial';
+                ctx.fillStyle = 'white';
+                ctx.fillText(`Generations: ${generationCounter}`, 10, 20);
                 dataArray.forEach((array, rowIndex) => {
                     array.forEach((value) => {
                         if (value === 1) {
@@ -118,10 +128,6 @@ function main(generations) {
     }
     function render(x, y, gx, gy, ctx, generationCounter) {
         draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, 'gray', ctx);
-        drawStrokedCircle(ctx, gx, gy, 5, 'orange');
-        ctx.font = '16px Arial';
-        ctx.fillStyle = 'white';
-        ctx.fillText(`Generations: ${generationCounter}`, 10, 20);
     }
     if (ctx !== null)
         initLearning(ctx, generations);
