@@ -9,6 +9,7 @@ function main(generations: number) {
 	const pixelSize = document.getElementById('pixel') as HTMLInputElement
 	const speed = document.getElementById('speed') as HTMLInputElement
 	const resetBtn = document.getElementById('btn') as HTMLInputElement
+	const branches = document.getElementById('branches') as HTMLInputElement
 	let resetBool = false
 
 	resetBtn.addEventListener('click', () => {
@@ -51,7 +52,7 @@ function main(generations: number) {
 		return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 	}
 
-	for (let i = 0; i < 30; i++) {
+	for (let i = 0; i < branches.valueAsNumber; i++) {
 		const squareArray = []
 		for (let j = 0; j < stepCount.valueAsNumber; j++) {
 			const getRandom = Math.floor(Math.random() * 4) + 1
@@ -112,14 +113,7 @@ function main(generations: number) {
 						} else if (value === 4) {
 							objArray[rowIndex].yPosition += stepLength.valueAsNumber
 						}
-						render(
-							objArray[rowIndex].xPosition,
-							objArray[rowIndex].yPosition,
-							gX,
-							gY,
-							ctx,
-							generationCounter
-						)
+						render(objArray[rowIndex].xPosition, objArray[rowIndex].yPosition, ctx)
 					})
 				})
 
@@ -173,7 +167,7 @@ function main(generations: number) {
 		requestAnimationFrame(animate)
 	}
 
-	function render(x: number, y: number, gx: number, gy: number, ctx: any, generationCounter: number) {
+	function render(x: number, y: number, ctx: CanvasRenderingContext2D) {
 		draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, 'gray', ctx)
 	}
 	if (ctx !== null) initLearning(ctx, generations)

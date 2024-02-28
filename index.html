@@ -19,13 +19,40 @@
 <body>
 
 <div id="input">
-    <label for="mutation-percentage"></label><input value="10" id="mutation-percentage" max="99" min="1" type='number' placeholder="mutation">
-    <label for="generationSize"></label><input value="1000" id="generationSize" max="5000" min="100" type="number" placeholder="Generation Size">
-    <label for="inheritance"></label><input type="number" id="inheritance" value="310" placeholder="inheritance" >
-    <label for="stepLength"></label><input type="number" value="3" id="stepLength" placeholder="step length" >
-    <label for='pixel'></label><input type="number" id='pixel' value="2" placeholder="pixel size">
-    <label for="speed"></label><input type="number" id="speed" value="50" min="1" max="120">
-    <button id="btn">Enter</button>
+    <div id="strict-inputs">
+        <div class="input-divs">
+            <h3>genes</h3>
+            <label for="generationSize"></label><input value="1000" id="generationSize" max="5000" min="100" type="number" placeholder="Generation Size">
+        </div>
+        <div class="input-divs" >
+            <h3>branches</h3>
+            <label for="branches"></label><input type="number" id="branches" value="20" min="1" max="100">
+        </div>
+        <div class="input-divs" >
+            <h3>render speed</h3>
+            <label for="speed"></label><input type="number" id="speed" value="50" min="1" max="120">
+        </div>
+        <button id="btn">reset</button>
+        <h4 id="info">reset to update values</h4>
+    </div>
+    <div class="input-divs">
+        <h3>mutations</h3>
+        <label for="mutation-percentage"></label><input value="10" id="mutation-percentage" max="99" min="1" type='number' placeholder="mutation">
+    </div>
+    <div class="input-divs" >
+        <h3>genes from best</h3>
+        <label for="inheritance"></label><input type="number" id="inheritance" value="310" placeholder="inheritance" >
+    </div>
+    <div class="input-divs" >
+        <h3>step length</h3>
+        <label for="stepLength"></label><input type="number" value="3" id="stepLength" placeholder="step length" >
+    </div>
+    <div class="input-divs" >
+        <h3>pixel size</h3>
+        <label for='pixel'></label><input type="number" id='pixel' value="2" placeholder="pixel size">
+    </div>
+
+
 </div>
 
 <canvas height="600" width="1320" id="canvas"></canvas>
