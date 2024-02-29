@@ -1,20 +1,10 @@
-import { getRandomColor, getRandomNumberInRange } from './helpers.js'
-let color = 1
+import { getRandomColor } from './helpers.js'
 
+let color: number = 1
 const colorBtn = document.getElementById('color-button') as HTMLButtonElement
 
-colorBtn.addEventListener('click', () => {
-	if (color === 1) {
-		color = 2
-	} else if (color === 2) {
-		color = 3
-	} else if (color === 3) {
-		color = 4
-	} else if (color === 4) {
-		color = 5
-	} else {
-		color = 1
-	}
+colorBtn.addEventListener('click', (): void => {
+	color = color === 1 ? 2 : (color = color === 2 ? 3 : (color = color === 3 ? 4 : (color = color === 4 ? 5 : 1)))
 
 	if (color === 1) {
 		colorBtn.textContent = 'gray'
@@ -29,7 +19,7 @@ colorBtn.addEventListener('click', () => {
 	}
 })
 
-function main(generations: number) {
+const main = (generations: number): void => {
 	const dataArray: Array<number>[] = []
 	const objArray: any[] = []
 
@@ -42,24 +32,24 @@ function main(generations: number) {
 	const resetBtn = document.getElementById('btn') as HTMLInputElement
 	const branches = document.getElementById('branches') as HTMLInputElement
 
-	let displayColor = getRandomColor()
-	let resetBool = false
+	let displayColor: string = getRandomColor()
+	let resetBool: boolean = false
 
-	resetBtn.addEventListener('click', () => {
+	resetBtn.addEventListener('click', (): void => {
 		resetBool = !resetBool
 	})
 
-	let bestDistance = Infinity
-	let bestDistanceIndex = Infinity
+	let bestDistance: number = Infinity
+	let bestDistanceIndex: number = Infinity
 
 	const canvas = document.getElementById('canvas') as HTMLCanvasElement
-	const ctx = canvas.getContext('2d')
+	const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
 
 	canvas.width = window.innerWidth
 	canvas.height = window.innerHeight
 
-	let gX = Math.floor(Math.random() * canvas.width - 30)
-	let gY = Math.floor(Math.random() * canvas.height - 30)
+	let gX: number = Math.floor(Math.random() * canvas.width - 30)
+	let gY: number = Math.floor(Math.random() * canvas.height - 30)
 
 	const draw = (x: number, y: number, w: number, h: number, color: string, ctx: any): void => {
 		ctx.fillStyle = color
@@ -85,14 +75,14 @@ function main(generations: number) {
 		return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 	}
 
-	for (let i = 0; i < branches.valueAsNumber; i++) {
-		const squareArray = []
-		for (let j = 0; j < stepCount.valueAsNumber; j++) {
-			const getRandom = Math.floor(Math.random() * 4) + 1
+	for (let i: number = 0; i < branches.valueAsNumber; i++) {
+		const squareArray: number[] = []
+		for (let j: number = 0; j < stepCount.valueAsNumber; j++) {
+			const getRandom: number = Math.floor(Math.random() * 4) + 1
 			squareArray.push(getRandom)
 		}
 
-		let squareObj = {
+		let squareObj: { xPosition: number; yPosition: number; distanceFromGoal: number } = {
 			xPosition: canvas.width / 2,
 			yPosition: canvas.height / 2,
 			distanceFromGoal: 0
@@ -102,18 +92,18 @@ function main(generations: number) {
 		dataArray.push(squareArray)
 	}
 
-	canvas.addEventListener('mousemove', (event) => {
+	canvas.addEventListener('mousemove', (event: MouseEvent): void => {
 		gX = event.clientX
 		gY = event.clientY
 	})
 	// @ts-ignore
 
-	function initLearning(ctx: CanvasRenderingContext2D, numGenerations: number) {
-		let generationCounter = 0
-		let lastFrameTime = 0
-		const fpsInterval = 1000 / speed.valueAsNumber
+	function initLearning(ctx: CanvasRenderingContext2D, numGenerations: number): void {
+		let generationCounter: number = 0
+		let lastFrameTime: number = 0
+		const fpsInterval: number = 1000 / speed.valueAsNumber
 
-		const animate = (timestamp: number) => {
+		const animate = (timestamp: number): void => {
 			if (color === 4) displayColor = getRandomColor()
 
 			if (bestDistance < 15 || generationCounter >= numGenerations || resetBool) {
@@ -122,11 +112,11 @@ function main(generations: number) {
 				return
 			}
 
-			const elapsedTime = timestamp - lastFrameTime
+			const elapsedTime: number = timestamp - lastFrameTime
 			if (elapsedTime > fpsInterval) {
 				lastFrameTime = timestamp - (elapsedTime % fpsInterval)
 
-				objArray.forEach((obj) => {
+				objArray.forEach((obj): void => {
 					obj.xPosition = canvas.width / 2
 					obj.yPosition = canvas.height / 2
 				})
@@ -142,12 +132,12 @@ function main(generations: number) {
 					displayColor = 'gray'
 				}
 
-				dataArray.forEach((array, rowIndex) => {
+				dataArray.forEach((array: number[], rowIndex: number): void => {
 					if (color === 2) {
 						displayColor = getRandomColor()
 					}
 
-					array.forEach((value) => {
+					array.forEach((value: number): void => {
 						if (color === 3) displayColor = getRandomColor()
 
 						if (value === 1) {
@@ -165,7 +155,7 @@ function main(generations: number) {
 
 				bestDistance = Infinity
 				bestDistanceIndex = 0
-				objArray.forEach((obj, index) => {
+				objArray.forEach((obj, index: number): void => {
 					obj.distanceFromGoal = calculateDistance(obj.xPosition, obj.yPosition, gX, gY)
 					if (obj.distanceFromGoal < bestDistance) {
 						bestDistance = obj.distanceFromGoal
@@ -173,31 +163,26 @@ function main(generations: number) {
 					}
 				})
 				//arv her
-				dataArray.forEach((array, rowIndex) => {
-					/*if (rowIndex !== bestDistanceIndex) {
-						array.forEach((value, valueIndex) => {
-							array[valueIndex] = dataArray[bestDistanceIndex][valueIndex]
-						})
-					}*/
+				dataArray.forEach((array: number[], rowIndex: number): void => {
 					// optimal genes
 					if (rowIndex !== bestDistanceIndex) {
-						const randomIndicesOptimal = Array.from({ length: inheritance.valueAsNumber }, () =>
+						const randomIndicesOptimal: number[] = Array.from({ length: inheritance.valueAsNumber }, () =>
 							Math.floor(Math.random() * array.length)
 						)
-						randomIndicesOptimal.forEach((randomIndex) => {
+						randomIndicesOptimal.forEach((randomIndex: number): void => {
 							array[randomIndex] = dataArray[bestDistanceIndex][randomIndex]
 						})
 					}
 					//random genes
-					const randomIndices = Array.from({ length: mutationInput.valueAsNumber }, () =>
+					const randomIndices: number[] = Array.from({ length: mutationInput.valueAsNumber }, () =>
 						Math.floor(Math.random() * array.length)
 					)
-					randomIndices.forEach((randomIndex) => {
+					randomIndices.forEach((randomIndex: number): void => {
 						array[randomIndex] = Math.floor(Math.random() * 4) + 1
 					})
 				})
 
-				objArray.forEach((obj, index) => {
+				objArray.forEach((obj, index: number): void => {
 					obj.distanceFromGoal = calculateDistance(obj.xPosition, obj.yPosition, gX, gY)
 
 					if (obj.distanceFromGoal < bestDistance) {
@@ -213,7 +198,7 @@ function main(generations: number) {
 		requestAnimationFrame(animate)
 	}
 
-	function render(x: number, y: number, ctx: CanvasRenderingContext2D, color: string) {
+	function render(x: number, y: number, ctx: CanvasRenderingContext2D, color: string): void {
 		draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, color, ctx)
 	}
 	if (ctx !== null) initLearning(ctx, generations)

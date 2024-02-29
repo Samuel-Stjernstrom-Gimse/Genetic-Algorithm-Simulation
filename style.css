@@ -114,3 +114,7 @@ h3{
 #color-button{
     height: 60px;
 }
+
+::-webkit-scrollbar{
+    display: none;
+}

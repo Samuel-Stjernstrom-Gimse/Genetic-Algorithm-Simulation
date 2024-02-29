@@ -2,21 +2,7 @@ import { getRandomColor } from './helpers.js';
 let color = 1;
 const colorBtn = document.getElementById('color-button');
 colorBtn.addEventListener('click', () => {
-    if (color === 1) {
-        color = 2;
-    }
-    else if (color === 2) {
-        color = 3;
-    }
-    else if (color === 3) {
-        color = 4;
-    }
-    else if (color === 4) {
-        color = 5;
-    }
-    else {
-        color = 1;
-    }
+    color = color === 1 ? 2 : (color = color === 2 ? 3 : (color = color === 3 ? 4 : (color = color === 4 ? 5 : 1)));
     if (color === 1) {
         colorBtn.textContent = 'gray';
     }
@@ -33,7 +19,7 @@ colorBtn.addEventListener('click', () => {
         colorBtn.textContent = 'environment random';
     }
 });
-function main(generations) {
+const main = (generations) => {
     const dataArray = [];
     const objArray = [];
     const mutationInput = document.getElementById('mutation-percentage');
@@ -177,6 +163,6 @@ function main(generations) {
     }
     if (ctx !== null)
         initLearning(ctx, generations);
-}
+};
 main(Infinity);
 //# sourceMappingURL=script.js.map
