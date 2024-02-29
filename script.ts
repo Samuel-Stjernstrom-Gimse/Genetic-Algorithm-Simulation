@@ -1,3 +1,34 @@
+import { getRandomColor, getRandomNumberInRange } from './helpers.js'
+let color = 1
+
+const colorBtn = document.getElementById('color-button') as HTMLButtonElement
+
+colorBtn.addEventListener('click', () => {
+	if (color === 1) {
+		color = 2
+	} else if (color === 2) {
+		color = 3
+	} else if (color === 3) {
+		color = 4
+	} else if (color === 4) {
+		color = 5
+	} else {
+		color = 1
+	}
+
+	if (color === 1) {
+		colorBtn.textContent = 'gray'
+	} else if (color === 2) {
+		colorBtn.textContent = 'branch Random'
+	} else if (color === 3) {
+		colorBtn.textContent = 'pixel Random'
+	} else if (color === 4) {
+		colorBtn.textContent = 'generation random'
+	} else {
+		colorBtn.textContent = 'environment random'
+	}
+})
+
 function main(generations: number) {
 	const dataArray: Array<number>[] = []
 	const objArray: any[] = []
@@ -10,6 +41,8 @@ function main(generations: number) {
 	const speed = document.getElementById('speed') as HTMLInputElement
 	const resetBtn = document.getElementById('btn') as HTMLInputElement
 	const branches = document.getElementById('branches') as HTMLInputElement
+
+	let displayColor = getRandomColor()
 	let resetBool = false
 
 	resetBtn.addEventListener('click', () => {
@@ -81,6 +114,8 @@ function main(generations: number) {
 		const fpsInterval = 1000 / speed.valueAsNumber
 
 		const animate = (timestamp: number) => {
+			if (color === 4) displayColor = getRandomColor()
+
 			if (bestDistance < 15 || generationCounter >= numGenerations || resetBool) {
 				ctx.clearRect(0, 0, canvas.width, canvas.height)
 				main(Infinity)
@@ -102,8 +137,19 @@ function main(generations: number) {
 				ctx.font = '16px Arial'
 				ctx.fillStyle = 'white'
 				ctx.fillText(`Generations: ${generationCounter}`, 10, 20)
+
+				if (color === 1) {
+					displayColor = 'gray'
+				}
+
 				dataArray.forEach((array, rowIndex) => {
+					if (color === 2) {
+						displayColor = getRandomColor()
+					}
+
 					array.forEach((value) => {
+						if (color === 3) displayColor = getRandomColor()
+
 						if (value === 1) {
 							objArray[rowIndex].xPosition -= stepLength.valueAsNumber
 						} else if (value === 2) {
@@ -113,7 +159,7 @@ function main(generations: number) {
 						} else if (value === 4) {
 							objArray[rowIndex].yPosition += stepLength.valueAsNumber
 						}
-						render(objArray[rowIndex].xPosition, objArray[rowIndex].yPosition, ctx)
+						render(objArray[rowIndex].xPosition, objArray[rowIndex].yPosition, ctx, displayColor)
 					})
 				})
 
@@ -167,8 +213,8 @@ function main(generations: number) {
 		requestAnimationFrame(animate)
 	}
 
-	function render(x: number, y: number, ctx: CanvasRenderingContext2D) {
-		draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, 'gray', ctx)
+	function render(x: number, y: number, ctx: CanvasRenderingContext2D, color: string) {
+		draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, color, ctx)
 	}
 	if (ctx !== null) initLearning(ctx, generations)
 }

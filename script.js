@@ -1,4 +1,38 @@
-"use strict";
+import { getRandomColor } from './helpers.js';
+let color = 1;
+const colorBtn = document.getElementById('color-button');
+colorBtn.addEventListener('click', () => {
+    if (color === 1) {
+        color = 2;
+    }
+    else if (color === 2) {
+        color = 3;
+    }
+    else if (color === 3) {
+        color = 4;
+    }
+    else if (color === 4) {
+        color = 5;
+    }
+    else {
+        color = 1;
+    }
+    if (color === 1) {
+        colorBtn.textContent = 'gray';
+    }
+    else if (color === 2) {
+        colorBtn.textContent = 'branch Random';
+    }
+    else if (color === 3) {
+        colorBtn.textContent = 'pixel Random';
+    }
+    else if (color === 4) {
+        colorBtn.textContent = 'generation random';
+    }
+    else {
+        colorBtn.textContent = 'environment random';
+    }
+});
 function main(generations) {
     const dataArray = [];
     const objArray = [];
@@ -10,6 +44,7 @@ function main(generations) {
     const speed = document.getElementById('speed');
     const resetBtn = document.getElementById('btn');
     const branches = document.getElementById('branches');
+    let displayColor = getRandomColor();
     let resetBool = false;
     resetBtn.addEventListener('click', () => {
         resetBool = !resetBool;
@@ -59,6 +94,8 @@ function main(generations) {
         let lastFrameTime = 0;
         const fpsInterval = 1000 / speed.valueAsNumber;
         const animate = (timestamp) => {
+            if (color === 4)
+                displayColor = getRandomColor();
             if (bestDistance < 15 || generationCounter >= numGenerations || resetBool) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 main(Infinity);
@@ -76,8 +113,16 @@ function main(generations) {
                 ctx.font = '16px Arial';
                 ctx.fillStyle = 'white';
                 ctx.fillText(`Generations: ${generationCounter}`, 10, 20);
+                if (color === 1) {
+                    displayColor = 'gray';
+                }
                 dataArray.forEach((array, rowIndex) => {
+                    if (color === 2) {
+                        displayColor = getRandomColor();
+                    }
                     array.forEach((value) => {
+                        if (color === 3)
+                            displayColor = getRandomColor();
                         if (value === 1) {
                             objArray[rowIndex].xPosition -= stepLength.valueAsNumber;
                         }
@@ -90,7 +135,7 @@ function main(generations) {
                         else if (value === 4) {
                             objArray[rowIndex].yPosition += stepLength.valueAsNumber;
                         }
-                        render(objArray[rowIndex].xPosition, objArray[rowIndex].yPosition, ctx);
+                        render(objArray[rowIndex].xPosition, objArray[rowIndex].yPosition, ctx, displayColor);
                     });
                 });
                 bestDistance = Infinity;
@@ -127,8 +172,8 @@ function main(generations) {
         };
         requestAnimationFrame(animate);
     }
-    function render(x, y, ctx) {
-        draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, 'gray', ctx);
+    function render(x, y, ctx, color) {
+        draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, color, ctx);
     }
     if (ctx !== null)
         initLearning(ctx, generations);
