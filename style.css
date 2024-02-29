@@ -93,9 +93,7 @@ input:hover, button:hover {
     padding-right: 20%;
 
 }
-::-webkit-scrollbar{
-    opacity: 0.7;
-}
+
 
 #text{
     padding: 90px;
