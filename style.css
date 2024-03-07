@@ -87,7 +87,7 @@ input:hover, button:hover {
 }
 
 #genetic-simulation{
-    background-image: url("images/dna.jpg");
+    background-color: #373434;
     background-size: cover;
     padding-left: 20%;
     padding-right: 20%;
