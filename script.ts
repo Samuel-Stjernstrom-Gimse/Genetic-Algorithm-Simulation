@@ -96,6 +96,7 @@ const main = (generations: number): void => {
 		gX = event.clientX
 		gY = event.clientY
 	})
+
 	// @ts-ignore
 
 	function initLearning(ctx: CanvasRenderingContext2D, numGenerations: number): void {
@@ -201,6 +202,7 @@ const main = (generations: number): void => {
 	function render(x: number, y: number, ctx: CanvasRenderingContext2D, color: string): void {
 		draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, color, ctx)
 	}
+
 	if (ctx !== null) initLearning(ctx, generations)
 }
 
