@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -9,7 +9,7 @@
 }
 
 
-#hero{
+#hero {
     font-size: 0.9rem;
     height: 100vh;
     position: relative;
@@ -17,11 +17,12 @@
     justify-content: center;
     align-items: center;
 }
-canvas{
+
+canvas {
     background-color: #0c0c0c;
 }
 
-body{
+body {
     scrollbar-width: thin;
     image-rendering: optimizeSpeed;
     background-color: #373434;
@@ -31,6 +32,7 @@ body{
     flex-direction: column;
 
 }
+
 #input {
     position: absolute;
     bottom: 2%;
@@ -39,25 +41,28 @@ body{
     align-items: center;
     justify-content: center;
 }
-.input-divs{
+
+.input-divs {
     width: 180px;
     padding: 2px;
     height: 70px;
     display: flex;
-    align-items:flex-start;
+    align-items: flex-start;
     flex-direction: column;
     justify-content: center;
 }
-input{
+
+input {
     width: 120px;
     background-color: transparent;
     border: 0.5px solid rgba(255, 255, 255, 0.2);
     text-align: center;
     margin-top: 4px;
 }
-button{
+
+button {
     border: 0.5px solid rgba(255, 255, 255, 0.2);
-    height:20px ;
+    height: 20px;
     width: 80px;
     background-color: transparent;
 }
@@ -66,27 +71,27 @@ input:hover, button:hover {
     border: 0.5px solid rgba(255, 255, 255, 0.41);
 }
 
-#strict-inputs, #live-inputs{
+#strict-inputs, #live-inputs {
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.18);
-    padding-left:10px ;
-    padding-right:10px ;
+    padding-left: 10px;
+    padding-right: 10px;
     height: 60px;
     border-radius: 4px;
     margin-right: 20px;
 }
 
-#info, #dynamic{
+#info, #dynamic {
     position: absolute;
     top: -30%;
     right: 0;
     color: gray;
 }
 
-#genetic-simulation{
+#genetic-simulation {
     background-color: #373434;
     background-size: cover;
     padding-left: 20%;
@@ -95,7 +100,7 @@ input:hover, button:hover {
 }
 
 
-#text{
+#text {
     padding: 90px;
     background-color: rgba(0, 0, 0, 0.68);
     padding-top: 5%;
@@ -104,17 +109,19 @@ input:hover, button:hover {
     flex-direction: column;
     padding-bottom: 10%;
 }
-li{
+
+li {
     padding-top: 20px;
 }
 
-h3{
+h3 {
     color: #1affa5;
 }
-#color-button{
+
+#color-button {
     height: 60px;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     display: none;
 }
