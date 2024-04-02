@@ -6,17 +6,15 @@ const colorBtn = document.getElementById('color-button') as HTMLButtonElement
 colorBtn.addEventListener('click', (): void => {
 	color = color === 1 ? 2 : (color = color === 2 ? 3 : (color = color === 3 ? 4 : (color = color === 4 ? 5 : 1)))
 
-	if (color === 1) {
-		colorBtn.textContent = 'gray'
-	} else if (color === 2) {
-		colorBtn.textContent = 'branch Random'
-	} else if (color === 3) {
-		colorBtn.textContent = 'pixel Random'
-	} else if (color === 4) {
-		colorBtn.textContent = 'generation random'
-	} else {
-		colorBtn.textContent = 'environment random'
-	}
+	colorBtn.textContent = color === 1
+		? 'gray'
+		: colorBtn.textContent = color === 2
+			? 'branch Random'
+			: colorBtn.textContent = color === 3
+				? 'pixel Random'
+				: colorBtn.textContent = color === 4
+					? 'generation random'
+					: 'environment random'
 })
 
 const main = (generations: number): void => {
@@ -56,13 +54,13 @@ const main = (generations: number): void => {
 		ctx.fillRect(x, y, w, h)
 	}
 
-	function drawStrokedCircle(
+	const drawStrokedCircle = (
 		ctx: CanvasRenderingContext2D,
 		x: number,
 		y: number,
 		radius: number,
 		fillColor: string
-	): void {
+	): void => {
 		ctx.beginPath()
 		ctx.arc(x, y, radius, 0, 2 * Math.PI)
 		ctx.fillStyle = fillColor
@@ -70,8 +68,7 @@ const main = (generations: number): void => {
 		ctx.stroke()
 	}
 
-	function calculateDistance(x1: number, y1: number, x2: number, y2: number): number {
-		// Euclidean distance formula
+	const calculateDistance = (x1: number, y1: number, x2: number, y2: number): number => {
 		return Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 	}
 
@@ -97,9 +94,7 @@ const main = (generations: number): void => {
 		gY = event.clientY
 	})
 
-	// @ts-ignore
-
-	function initLearning(ctx: CanvasRenderingContext2D, numGenerations: number): void {
+	const initLearning = (ctx: CanvasRenderingContext2D, numGenerations: number): void => {
 		let generationCounter: number = 0
 		let lastFrameTime: number = 0
 		const fpsInterval: number = 1000 / speed.valueAsNumber
@@ -199,7 +194,7 @@ const main = (generations: number): void => {
 		requestAnimationFrame(animate)
 	}
 
-	function render(x: number, y: number, ctx: CanvasRenderingContext2D, color: string): void {
+	const render = (x: number, y: number, ctx: CanvasRenderingContext2D, color: string): void => {
 		draw(x, y, pixelSize.valueAsNumber, pixelSize.valueAsNumber, color, ctx)
 	}
 
