@@ -1,5 +1,6 @@
 import { getRandomColor } from './helpers.js'
 
+
 let color: number = 1
 const colorBtn = document.getElementById('color-button') as HTMLButtonElement
 
